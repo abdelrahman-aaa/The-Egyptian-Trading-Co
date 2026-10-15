@@ -4,7 +4,7 @@
    ============================================================ */
 
 .about-page {
-  padding-top: 50px; /* Offset for fixed navbar */
+  padding-top: 68px; /* Offset for fixed navbar */
   background-color: var(--white);
   color: var(--text-body);
   overflow-x: hidden;

@@ -14,6 +14,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Ensure fixed navbar (68px) does not cover targets or section headings when scrolling to anchors */
+[id] {
+  scroll-margin-top: 78px;
+}
+
 body {
   font-family: var(--font-sans);
   font-size: 16px;

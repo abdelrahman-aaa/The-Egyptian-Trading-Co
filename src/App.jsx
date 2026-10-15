@@ -18,11 +18,35 @@ function App() {
       if (hash.includes("about")) {
         setCurrentPage("about");
         window.scrollTo({ top: 0, behavior: "smooth" });
-      } else if (hash.includes("products")) {
+      } else if (
+        hash.includes("products") ||
+        hash.includes("npk") ||
+        hash.includes("urea") ||
+        hash.includes("sulphur") ||
+        hash.includes("potassium") ||
+        hash.includes("iron") ||
+        hash.includes("manganese") ||
+        hash.includes("superphosphate") ||
+        hash.includes("limestone") ||
+        hash.includes("dap")
+      ) {
         setCurrentPage("products");
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        if (hash !== "#products") {
+          setTimeout(() => {
+            const el = document.querySelector(window.location.hash);
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }, 100);
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
       } else {
         setCurrentPage("home");
+        if (hash && hash !== "#hero") {
+          setTimeout(() => {
+            const el = document.querySelector(window.location.hash);
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }, 100);
+        }
       }
     };
 
@@ -34,11 +58,26 @@ function App() {
     setCurrentPage(page);
 
     if (page === "about") {
-      window.location.hash = "#about";
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.location.hash = targetAnchor || "#about";
+      if (targetAnchor && targetAnchor !== "#about") {
+        setTimeout(() => {
+          const el = document.querySelector(targetAnchor);
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }, 80);
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     } else if (page === "products") {
-      window.location.hash = "#products";
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (targetAnchor && targetAnchor !== "#products") {
+        window.location.hash = targetAnchor;
+        setTimeout(() => {
+          const el = document.querySelector(targetAnchor);
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }, 80);
+      } else {
+        window.location.hash = "#products";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     } else {
       if (targetAnchor && targetAnchor !== "#hero") {
         window.location.hash = targetAnchor;

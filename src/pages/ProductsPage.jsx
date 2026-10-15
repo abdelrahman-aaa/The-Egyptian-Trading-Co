@@ -7,140 +7,25 @@ import p4Img from '../assets/images (3).jpg';
 import p5Img from '../assets/images (4).jpg';
 import p11Img from '../assets/agricultural-lime-powder-500x500.webp';
 import p12Img from '../assets/DAP.webp';
+import { useTranslation } from '../hooks/useTranslation';
 
 import './ProductsPage.css';
 
-/* ── Grid Products Data (9 products, same order as the portfolio table) ── */
-const PRODUCTS = [
-  {
-    id: 'npk',
-    badge: 'NPK Compound',
-    title: 'NPK Fertilizers',
-    desc: 'Multi-nutrient fertilizers supplying nitrogen, phosphorus and potassium according to the required grade.',
-    img: p1Img,
-    specs: [
-      { label: 'Nitrogen (N)', val: 'According to grade' },
-      { label: 'Phosphorus (P)', val: 'According to grade' },
-      { label: 'Potassium (K)', val: 'According to grade' },
-      { label: 'Example Grade', val: '15-15-15 + 4S' },
-    ],
-    packaging: 'Available in 25kg, 50kg, and Bulk shipment.',
-  },
-  {
-    id: 'urea',
-    badge: 'Nitrogen Fertilizer',
-    title: 'Urea',
-    desc: 'High-nitrogen fertilizer widely used in agricultural applications.',
-    img: ureaBowlImg,
-    specs: [
-      { label: 'Nitrogen (N)', val: '46.0% min' },
-      { label: 'Biuret', val: '1.0% max' },
-      { label: 'Moisture', val: '0.5% max' },
-      { label: 'Particle Size', val: '2-4mm' },
-    ],
-    packaging: 'Available in 50kg PP bags and 1000kg Jumbo bags.',
-  },
-  {
-    id: 'sulphur',
-    badge: 'Soil Conditioner',
-    title: 'Granular Sulphur',
-    desc: 'Granulated sulphur used in fertilizer programs and soil-management applications.',
-    img: p2Img,
-    specs: [
-      { label: 'Purity (S)', val: '99.5% min' },
-      { label: 'Ash Content', val: '0.1% max' },
-      { label: 'Moisture', val: '0.5% max' },
-      { label: 'Granule Size', val: '2-4mm (90%)' },
-    ],
-    packaging: 'Dust-free prilling process for safer handling.',
-  },
-  {
-    id: 'mop',
-    badge: 'Potassium Source',
-    title: 'Potassium Fertilizers',
-    desc: 'Potassium-based products used to support plant development and crop quality.',
-    img: p3Img,
-    specs: [
-      { label: 'Potassium (K2O)', val: '60.0% min' },
-      { label: 'Chloride (Cl)', val: '47.0% max' },
-      { label: 'Moisture', val: '0.5% max' },
-      { label: 'Color', val: 'Pink/Red' },
-    ],
-    packaging: 'Available in 25kg, 50kg, and Bulk shipment.',
-  },
-  {
-    id: 'iron',
-    badge: 'Micronutrient',
-    title: 'Granular Iron',
-    desc: 'Granulated iron product used in agricultural and soil-nutrition applications.',
-    img: p4Img, // replace with your own image, e.g. import ironImg from '../assets/granular_iron.jpg'
-    specs: [
-      { label: 'Iron (Fe)', val: 'Contact for grade' },
-      { label: 'Form', val: 'Granular' },
-      { label: 'Moisture', val: 'Contact for grade' },
-      { label: 'Granule Size', val: 'Contact for grade' },
-    ],
-    packaging: 'Available in 25kg, 50kg, and Bulk shipment.',
-  },
-  {
-    id: 'manganese',
-    badge: 'Micronutrient',
-    title: 'Granular Manganese',
-    desc: 'Granulated manganese product used to support micronutrient management.',
-    img: p5Img, // replace with your own image
-    specs: [
-      { label: 'Manganese (Mn)', val: 'Contact for grade' },
-      { label: 'Form', val: 'Granular' },
-      { label: 'Moisture', val: 'Contact for grade' },
-      { label: 'Granule Size', val: 'Contact for grade' },
-    ],
-    packaging: 'Available in 25kg, 50kg, and Bulk shipment.',
-  },
-  {
-    id: 'ssp',
-    badge: 'Phosphorus Fertilizer',
-    title: 'Superphosphate',
-    desc: 'Phosphorus-based fertilizer used to support root development and crop nutrition.',
-    img: sspImg,
-    specs: [
-      { label: 'Effective P2O5', val: '≥ 17.0%' },
-      { label: 'Sulphur (S)', val: '≥ 12.0%' },
-      { label: 'Form', val: 'Granular / Powder' },
-      { label: 'Packaging', val: '25kg / Bulk' },
-    ],
-    packaging: 'Better Phosphorus • Stronger Roots • Higher Yields',
-  },
-  {
-    id: 'limestone',
-    badge: 'Soil Conditioner',
-    title: 'Limestone',
-    desc: 'Mineral product used in soil conditioning and agricultural applications.',
-    img: p11Img, // replace with your own image
-    specs: [
-      { label: 'CaCO₃', val: 'Contact for grade' },
-      { label: 'Form', val: 'Granular / Powder' },
-      { label: 'Moisture', val: 'Contact for grade' },
-      { label: 'Particle Size', val: 'Contact for grade' },
-    ],
-    packaging: 'Available in 25kg, 50kg, and Bulk shipment.',
-  },
-  {
-    id: 'dap',
-    badge: 'NP Complex',
-    title: 'DAP',
-    desc: 'Diammonium phosphate fertilizer supplying nitrogen and phosphorus.',
-    img: p12Img,
-    specs: [
-      { label: 'Total Nitrogen', val: '18.0% min' },
-      { label: 'Available P2O5', val: '46.0% min' },
-      { label: 'Water Soluble P', val: '41.0% min' },
-      { label: 'Moisture', val: '1.5% max' },
-    ],
-    packaging: 'Available in 25kg, 50kg, and Bulk shipment.',
-  },
-];
+const PRODUCT_IMAGES = {
+  npk: p1Img,
+  urea: ureaBowlImg,
+  sulphur: p2Img,
+  potassium: p3Img,
+  iron: p4Img,
+  manganese: p5Img,
+  superphosphate: sspImg,
+  limestone: p11Img,
+  dap: p12Img,
+};
 
 export default function ProductsPage({ onNavigate }) {
+  const { t, productsData } = useTranslation();
+
   const handleNav = (target, page = 'home') => {
     if (onNavigate) {
       onNavigate(page, target);
@@ -150,20 +35,29 @@ export default function ProductsPage({ onNavigate }) {
     }
   };
 
+  const destinations = t('productsPage.toolbar.destinations') || [];
+  const packagingOptions = t('productsPage.toolbar.packagingOptions') || [];
+  const detailedStats = t('productsPage.detailed.stats') || [];
+  const detailedTableRows = t('productsPage.detailed.tableRows') || [];
+  const qualityCards = t('productsPage.quality.cards') || [];
+
   return (
-    <main className="products-page">
+    <main className="products-page" id="products">
       {/* ══ HEADER SECTION ═══════════════════════════════════ */}
       <section className="products-header">
         <div className="container">
           <div className="products-header__content">
             <div className="products-header__text">
-              <span className="products-header__tag">COMPREHENSIVE AGRICULTURAL & INDUSTRIAL PRODUCT PORTFOLIO</span>
-              <h1 className="products-header__title">Our Products & Formulations</h1>
+              <span className="products-header__tag">
+                {t('productsPage.header.tag')}
+              </span>
+              <h1 className="products-header__title">
+                {t('productsPage.header.title')}
+              </h1>
               <p className="products-header__desc">
-                High-performance fertilizers and mineral formulations developed to optimize crop yields, improve soil structure, and serve demanding industrial applications globally.
+                {t('productsPage.header.desc')}
               </p>
             </div>
-           
           </div>
         </div>
       </section>
@@ -173,20 +67,22 @@ export default function ProductsPage({ onNavigate }) {
         <div className="container">
           <div className="products-toolbar__inner">
             <div className="products-toolbar__filters">
-              <button className="products-filter-btn active">All Products ({PRODUCTS.length})</button>
+              <button className="products-filter-btn active">
+                {t('productsPage.toolbar.allProducts')} ({productsData.length})
+              </button>
             </div>
             <div className="products-toolbar__dropdowns">
-              <select className="products-select">
-                <option>Export Destinations</option>
-                <option>Africa</option>
-                <option>Europe</option>
-                <option>Asia</option>
+              <select className="products-select" aria-label="Export Destinations">
+                <option>{t('productsPage.toolbar.exportDestinations')}</option>
+                {destinations.map((d) => (
+                  <option key={d}>{d}</option>
+                ))}
               </select>
-              <select className="products-select">
-                <option>Packaging: All Sizes</option>
-                <option>25kg Bags</option>
-                <option>50kg Bags</option>
-                <option>1000kg Jumbo Bulk</option>
+              <select className="products-select" aria-label="Packaging Sizes">
+                <option>{t('productsPage.toolbar.packagingAll')}</option>
+                {packagingOptions.map((pkg) => (
+                  <option key={pkg}>{pkg}</option>
+                ))}
               </select>
             </div>
           </div>
@@ -198,25 +94,29 @@ export default function ProductsPage({ onNavigate }) {
         <div className="container">
           <div className="products-grid-header">
             <div>
-              <h2 className="products-grid-title">Certified Industrial Formulations</h2>
-              <p className="products-grid-subtitle">Consistent chemical grading, superior crop nutrition, and reliable logistics planning.</p>
+              <h2 className="products-grid-title">{t('productsPage.gridHeader.title')}</h2>
+              <p className="products-grid-subtitle">{t('productsPage.gridHeader.subtitle')}</p>
             </div>
-            <button className="products-download-btn">
-              Download Full Product Specifications <span style={{ marginLeft: '6px' }}>→</span>
+            <button className="products-download-btn" onClick={() => handleNav('#contact', 'home')}>
+              {t('productsPage.gridHeader.downloadAll')} <span style={{ marginLeft: '6px' }}>→</span>
             </button>
           </div>
 
           <div className="products-grid">
-            {PRODUCTS.map((prod) => (
-              <div key={prod.id} className="product-card">
+            {productsData.map((prod) => (
+              <div key={prod.id} id={prod.id} className="product-card">
                 <div className="product-card__img-box">
-                  <img src={prod.img} alt={prod.title} className="product-card__img" />
+                  <img
+                    src={PRODUCT_IMAGES[prod.id] || p1Img}
+                    alt={prod.name}
+                    className="product-card__img"
+                  />
                   <span className="product-card__badge">{prod.badge}</span>
                 </div>
                 <div className="product-card__body">
-                  <h3 className="product-card__title">{prod.title}</h3>
+                  <h3 className="product-card__title">{prod.name}</h3>
                   <p className="product-card__desc">{prod.desc}</p>
-                  
+
                   <div className="product-card__specs">
                     {prod.specs.map((spec) => (
                       <div key={spec.label} className="product-card__spec-row">
@@ -231,8 +131,11 @@ export default function ProductsPage({ onNavigate }) {
                     {prod.packaging}
                   </div>
 
-                  <button className="product-card__btn">
-                    <span style={{ marginRight: '6px' }}>⬇</span> Download Technical Data (TDS)
+                  <button
+                    className="product-card__btn"
+                    onClick={() => handleNav('#contact', 'home')}
+                  >
+                    <span style={{ marginRight: '6px' }}>⬇</span> {t('productsPage.card.downloadTDS')}
                   </button>
                 </div>
               </div>
@@ -245,9 +148,15 @@ export default function ProductsPage({ onNavigate }) {
       <section className="product-detailed">
         <div className="container">
           <div className="product-detailed__header">
-            <div className="section-label" style={{ marginBottom: '8px' }}>FEATURED HIGH-DEMAND PRODUCT</div>
-            <h2 className="product-detailed__title">Technical Product Profile & Agronomic Application</h2>
-            <p className="product-detailed__desc">Detailed chemical and physical breakdown of our primary export fertilizer. Recognized globally for highest-tier nitrogen concentration and granule consistency.</p>
+            <div className="section-label" style={{ marginBottom: '8px' }}>
+              {t('productsPage.detailed.label')}
+            </div>
+            <h2 className="product-detailed__title">
+              {t('productsPage.detailed.title')}
+            </h2>
+            <p className="product-detailed__desc">
+              {t('productsPage.detailed.desc')}
+            </p>
           </div>
 
           <div className="product-detailed__grid">
@@ -255,30 +164,28 @@ export default function ProductsPage({ onNavigate }) {
             <div className="product-detailed__img-col">
               <div className="product-detailed__img-frame">
                 <img src={ureaBowlImg} alt="Urea 46-0-0 Granules" className="product-detailed__main-img" />
-                <span className="product-detailed__img-badge">UREA 46-0-0</span>
+                <span className="product-detailed__img-badge">
+                  {t('productsPage.detailed.badge')}
+                </span>
               </div>
               <div className="product-detailed__stats">
-                <div className="product-detailed__stat">
-                  <span className="product-detailed__stat-icon">🌱</span>
-                  <span className="product-detailed__stat-val">46%</span>
-                  <span className="product-detailed__stat-label">Total Nitrogen</span>
-                </div>
-                <div className="product-detailed__stat">
-                  <span className="product-detailed__stat-icon">💧</span>
-                  <span className="product-detailed__stat-val">0.5%</span>
-                  <span className="product-detailed__stat-label">Max Moisture</span>
-                </div>
-                <div className="product-detailed__stat">
-                  <span className="product-detailed__stat-icon">⚪</span>
-                  <span className="product-detailed__stat-val">2-4mm</span>
-                  <span className="product-detailed__stat-label">Granular Form</span>
-                </div>
+                {detailedStats.map((st) => (
+                  <div key={st.label} className="product-detailed__stat">
+                    <span className="product-detailed__stat-icon">🌱</span>
+                    <span className="product-detailed__stat-val">{st.val}</span>
+                    <span className="product-detailed__stat-label">{st.label}</span>
+                  </div>
+                ))}
               </div>
               <div className="product-detailed__alert">
                 <div className="product-detailed__alert-icon">🛡️</div>
                 <div>
-                  <div className="product-detailed__alert-title">EPA & GHS COMPLIANT PRODUCTION</div>
-                  <div className="product-detailed__alert-text">Manufactured under strict ISO 9001 quality frameworks, guaranteeing low biuret content and preventing phytotoxicity across sensitive crops during foliar and soil application.</div>
+                  <div className="product-detailed__alert-title">
+                    {t('productsPage.detailed.alertTitle')}
+                  </div>
+                  <div className="product-detailed__alert-text">
+                    {t('productsPage.detailed.alertText')}
+                  </div>
                 </div>
               </div>
             </div>
@@ -287,49 +194,28 @@ export default function ProductsPage({ onNavigate }) {
             <div className="product-detailed__data-col">
               <div className="product-detailed__data-card">
                 <div className="product-detailed__tabs">
-                  <div className="product-detailed__tab active">CHEMICAL ANALYSIS (TDS)</div>
+                  <div className="product-detailed__tab active">
+                    {t('productsPage.detailed.tabTitle')}
+                  </div>
                 </div>
-                
+
                 <div className="product-detailed__table-wrap">
                   <table className="product-detailed__table">
                     <thead>
                       <tr>
-                        <th>PARAMETER</th>
-                        <th>INDUSTRY STANDARD</th>
-                        <th>OUR GRADE</th>
+                        <th>{t('productsPage.detailed.tableHeaders.param')}</th>
+                        <th>{t('productsPage.detailed.tableHeaders.standard')}</th>
+                        <th>{t('productsPage.detailed.tableHeaders.ourGrade')}</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Total Nitrogen (N) Content</td>
-                        <td>Min 46.0% by weight</td>
-                        <td className="product-detailed__td-highlight">46.2% Typical</td>
-                      </tr>
-                      <tr>
-                        <td>Biuret Content</td>
-                        <td>Max 1.0% by weight</td>
-                        <td className="product-detailed__td-highlight">0.85% Typical</td>
-                      </tr>
-                      <tr>
-                        <td>Moisture Content (H₂O)</td>
-                        <td>Max 0.5% by weight</td>
-                        <td className="product-detailed__td-highlight">0.3% Typical</td>
-                      </tr>
-                      <tr>
-                        <td>Particle Size (2-4mm)</td>
-                        <td>90% - 94% pass</td>
-                        <td className="product-detailed__td-highlight">95.5% Typical</td>
-                      </tr>
-                      <tr>
-                        <td>Formaldehyde (HCHO)</td>
-                        <td>0.3% - 0.5% by weight</td>
-                        <td className="product-detailed__td-highlight">0.45% Typical</td>
-                      </tr>
-                      <tr>
-                        <td>Bulk Density (Tapped)</td>
-                        <td>700 - 780 kg/m³</td>
-                        <td className="product-detailed__td-highlight">740 kg/m³ Typical</td>
-                      </tr>
+                      {detailedTableRows.map((row) => (
+                        <tr key={row.param}>
+                          <td>{row.param}</td>
+                          <td>{row.std}</td>
+                          <td className="product-detailed__td-highlight">{row.our}</td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
@@ -337,28 +223,30 @@ export default function ProductsPage({ onNavigate }) {
                 <div className="product-detailed__info-boxes">
                   <div className="product-detailed__info-box">
                     <div className="product-detailed__info-title">
-                      <span className="product-detailed__info-icon">🌿</span> Agronomic Use Case
+                      <span className="product-detailed__info-icon">🌿</span>{' '}
+                      {t('productsPage.detailed.infoBox1Title')}
                     </div>
                     <p className="product-detailed__info-text">
-                      Highest concentration solid nitrogen fertilizer. Excellent for top-dressing and basal application across cereals, cotton, and broadacre farming. Formaldehyde conditioning provides anti-caking properties during transit and storage.
+                      {t('productsPage.detailed.infoBox1Text')}
                     </p>
                   </div>
                   <div className="product-detailed__info-box">
                     <div className="product-detailed__info-title">
-                      <span className="product-detailed__info-icon">📦</span> Storage & Handling Guidelines
+                      <span className="product-detailed__info-icon">📦</span>{' '}
+                      {t('productsPage.detailed.infoBox2Title')}
                     </div>
                     <p className="product-detailed__info-text">
-                      Highly hygroscopic material. Must be stored in dry, well-ventilated warehousing, completely shielded from direct sunlight and moisture. Bagging includes inner PE liner for moisture protection during maritime shipping.
+                      {t('productsPage.detailed.infoBox2Text')}
                     </p>
                   </div>
                 </div>
 
                 <div className="product-detailed__actions">
                   <button onClick={() => handleNav('#contact', 'home')} className="product-detailed__btn-primary">
-                    <span style={{ marginRight: '8px' }}>✉</span> Request Bulk Export Quote
+                    <span style={{ marginRight: '8px' }}>✉</span> {t('productsPage.detailed.requestQuote')}
                   </button>
-                  <button className="product-detailed__btn-outline">
-                    <span style={{ marginRight: '8px' }}>⬇</span> Download SDS Data
+                  <button onClick={() => handleNav('#contact', 'home')} className="product-detailed__btn-outline">
+                    <span style={{ marginRight: '8px' }}>⬇</span> {t('productsPage.detailed.downloadSDS')}
                   </button>
                 </div>
               </div>
@@ -371,29 +259,21 @@ export default function ProductsPage({ onNavigate }) {
       <section className="products-quality">
         <div className="container">
           <div className="about-section-header" style={{ marginBottom: '40px' }}>
-            <div className="section-label">ASSURANCE & EXPORT COMPLIANCE</div>
-            <h2 className="about-section-title">Institutional Quality Verification & Traceability</h2>
+            <div className="section-label">{t('productsPage.quality.label')}</div>
+            <h2 className="about-section-title">{t('productsPage.quality.title')}</h2>
             <p className="about-section-desc">
-              Every shipment is verified against contractual parameters by independent surveyor authorities, ensuring guaranteed delivery specifications straight to the port of discharge.
+              {t('productsPage.quality.desc')}
             </p>
           </div>
 
           <div className="products-quality__grid">
-            <div className="products-quality__card">
-              <div className="products-quality__icon">🏭</div>
-              <h4 className="products-quality__title">ISO 9001:2015 Manufacturing Quality</h4>
-              <p className="products-quality__desc">Total end-to-end quality control spanning raw material sourcing, chemical processing, granulation, cooling, and automated bagging lines at the factory level.</p>
-            </div>
-            <div className="products-quality__card">
-              <div className="products-quality__icon">📋</div>
-              <h4 className="products-quality__title">SGS / Bureau Veritas Pre-Shipment</h4>
-              <p className="products-quality__desc">Mandatory independent laboratory testing and draft surveying conducted at the load port. Full certification of quality, quantity, and weight provided with shipping documents.</p>
-            </div>
-            <div className="products-quality__card">
-              <div className="products-quality__icon">🌐</div>
-              <h4 className="products-quality__title">REACH & Global Trade Compliant</h4>
-              <p className="products-quality__desc">In alignment with international GHS standards and REACH registration guidelines, supporting smooth customs clearance and regulatory compliance across destination markets.</p>
-            </div>
+            {qualityCards.map((card) => (
+              <div key={card.title} className="products-quality__card">
+                <div className="products-quality__icon">{card.icon}</div>
+                <h4 className="products-quality__title">{card.title}</h4>
+                <p className="products-quality__desc">{card.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -403,12 +283,12 @@ export default function ProductsPage({ onNavigate }) {
         <div className="container">
           <div className="products-cta__inner">
             <div className="products-cta__text">
-              <span className="products-cta__tag">GLOBAL DISTRIBUTION NETWORK</span>
+              <span className="products-cta__tag">{t('productsPage.cta.tag')}</span>
               <h2 className="products-cta__title">
-                Need More Information About Our Products or Custom Blends?
+                {t('productsPage.cta.title')}
               </h2>
               <p className="products-cta__desc">
-                Our agronomic and export teams are ready to provide custom formulations, exact shipping schedules, bespoke packaging configurations, and competitive CIF/FOB pricing tailored to your import requirements.
+                {t('productsPage.cta.desc')}
               </p>
             </div>
             <div className="products-cta__actions">
@@ -416,13 +296,13 @@ export default function ProductsPage({ onNavigate }) {
                 className="products-cta__btn-white"
                 onClick={() => handleNav('#contact', 'home')}
               >
-                Connect With Regional Sales Desk
+                {t('productsPage.cta.btnRegional')}
               </button>
               <button
                 className="products-cta__btn-outline"
                 onClick={() => handleNav('#contact', 'home')}
               >
-                Send Request for Information (RFI)
+                {t('productsPage.cta.btnRFI')}
               </button>
             </div>
           </div>
@@ -436,21 +316,21 @@ export default function ProductsPage({ onNavigate }) {
           <div>
             <div className="footer__brand-logo">
               <div className="footer__brand-icon">🌿</div>
-              <span className="footer__brand-name">The Egyptian Trading Co.</span>
+              <span className="footer__brand-name">{t('nav.companyName')}</span>
             </div>
             <p className="footer__brand-desc">
-              A specialized company in the manufacturing, trading and export of fertilizers and mineral soil-conditioning products. Committed to dependable supply and long-term customer partnerships.
+              {t('footer.brandDesc')}
             </p>
             <div style={{ marginTop: '14px', fontSize: '13px', color: 'rgba(255,255,255,0.45)' }}>
-              <div>📍 51 Zahraa St, Dokki, Giza, Egypt</div>
+              <div>📍 {t('common.addressShort')}</div>
               <div style={{ marginTop: '4px' }}>
                 <a href="tel:+201110009980" style={{ color: 'rgba(255,255,255,0.65)', textDecoration: 'none' }}>
-                  📞 +20 111 000 9980
+                  📞 {t('common.callNumber1')}
                 </a>
               </div>
               <div style={{ marginTop: '4px' }}>
                 <a href="tel:+201156186199" style={{ color: 'rgba(255,255,255,0.65)', textDecoration: 'none' }}>
-                  📞 +20 115 618 6199
+                  📞 {t('common.callNumber2')}
                 </a>
               </div>
             </div>
@@ -458,15 +338,15 @@ export default function ProductsPage({ onNavigate }) {
 
           {/* Products Column */}
           <div>
-            <div className="footer__col-title">Products</div>
+            <div className="footer__col-title">{t('footer.productsTitle')}</div>
             <div className="footer__col-links">
-              {['NPK Fertilizers', 'Urea', 'Granular Sulphur', 'Potassium Fertilizers', 'DAP', 'Superphosphate', 'Limestone', 'Granular Iron', 'Granular Manganese'].map((l) => (
+              {productsData.map((p) => (
                 <button
-                  key={l}
-                  onClick={() => handleNav('#products', 'home')}
+                  key={p.id}
+                  onClick={() => handleNav(`#${p.id}`, 'products')}
                   className="footer__col-link-btn"
                 >
-                  {l}
+                  {p.name}
                 </button>
               ))}
             </div>
@@ -474,35 +354,35 @@ export default function ProductsPage({ onNavigate }) {
 
           {/* Company Column */}
           <div>
-            <div className="footer__col-title">Our Business</div>
+            <div className="footer__col-title">{t('footer.businessTitle')}</div>
             <div className="footer__col-links">
               <button onClick={() => handleNav('#about', 'about')} className="footer__col-link-btn">
-                About Us
+                {t('footer.links.aboutUs')}
               </button>
               <button onClick={() => handleNav('#precision', 'home')} className="footer__col-link-btn">
-                Manufacturing
+                {t('footer.links.manufacturing')}
               </button>
-              <button onClick={() => handleNav('#industrial', 'home')} className="footer__col-link-btn">
-                Trading & Sourcing
+              <button onClick={() => handleNav('#precision', 'home')} className="footer__col-link-btn">
+                {t('footer.links.trading')}
               </button>
-              <button onClick={() => handleNav('#industrial', 'home')} className="footer__col-link-btn">
-                Export Services
+              <button onClick={() => handleNav('#precision', 'home')} className="footer__col-link-btn">
+                {t('footer.links.exportServices')}
               </button>
               <button onClick={() => handleNav('#supply', 'home')} className="footer__col-link-btn">
-                Global Customers
+                {t('footer.links.globalCustomers')}
               </button>
             </div>
           </div>
 
           {/* Contact Column */}
           <div>
-            <div className="footer__col-title">Contact</div>
+            <div className="footer__col-title">{t('footer.contactTitle')}</div>
             <div className="footer__col-links">
-              <a href="mailto:info@egyptiantrading.com" className="footer__col-link">✉ Send Email</a>
-              <a href="tel:+201110009980" className="footer__col-link">📞 +20 111 000 9980</a>
-              <a href="tel:+201156186199" className="footer__col-link">📞 +20 115 618 6199</a>
+              <a href="mailto:info@egyptiantrading.com" className="footer__col-link">{t('footer.sendEmail')}</a>
+              <a href="tel:+201110009980" className="footer__col-link">📞 {t('common.callNumber1')}</a>
+              <a href="tel:+201156186199" className="footer__col-link">📞 {t('common.callNumber2')}</a>
               <span className="footer__col-link" style={{ lineHeight: '1.6' }}>
-                📍 51 Zahraa St, Dokki<br />Giza, Egypt
+                📍 {t('common.addressLine1')}<br />{t('common.addressLine2')}
               </span>
             </div>
           </div>
@@ -510,10 +390,10 @@ export default function ProductsPage({ onNavigate }) {
 
         <div className="container">
           <div className="footer__bottom">
-            <span>© 2026 The Egyptian Trading Company. All rights reserved.</span>
+            <span>{t('common.allRightsReserved')}</span>
             <div className="footer__bottom-links">
-              <span className="footer__bottom-link">Privacy Policy</span>
-              <span className="footer__bottom-link">Terms of Service</span>
+              <span className="footer__bottom-link">{t('common.privacyPolicy')}</span>
+              <span className="footer__bottom-link">{t('common.termsOfService')}</span>
             </div>
           </div>
         </div>
