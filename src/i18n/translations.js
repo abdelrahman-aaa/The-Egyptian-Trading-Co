@@ -151,6 +151,7 @@ export const translations = {
         desc: 'For product specifications, quotations, export inquiries and long-term supply opportunities, contact The Egyptian Trading Company today.',
         sendEnquiry: '✉ Send an Enquiry',
         call: '📞 +20 111 000 9980',
+        emailsLabel: 'Direct Team Contacts',
       },
     },
     about: {
@@ -680,6 +681,7 @@ export const translations = {
         desc: 'Pour toute demande de fiches techniques, cotations, questions d’exportation ou contrats d’approvisionnement durable, contactez The Egyptian Trading Company dès aujourd’hui.',
         sendEnquiry: '✉ Envoyer une demande',
         call: '📞 +20 111 000 9980',
+        emailsLabel: 'Contacts Directs de l\u2019Équipe',
       },
     },
     about: {

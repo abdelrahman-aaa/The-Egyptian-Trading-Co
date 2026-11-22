@@ -240,7 +240,7 @@ export default function HomePage({ onNavigate }) {
         </div>
       </section>
 
-      {/* ══ CTA BANNER ═════════════════════════════════════ */}
+      {/* ══ CTA BANNER / CONTACT ════════════════════════════ */}
       <section id="contact" className="cta-banner">
         <div className="cta-banner__inner">
           <h2 className="cta-banner__title">{t('home.ctaBanner.title')}</h2>
@@ -254,6 +254,33 @@ export default function HomePage({ onNavigate }) {
             <a href="tel:+201110009980" className="cta-banner__btn-ghost" id="cta-call-btn">
               {t('home.ctaBanner.call')}
             </a>
+          </div>
+
+          {/* ── Team Email Addresses ── */}
+          <div className="contact-emails">
+            <p className="contact-emails__label">{t('home.ctaBanner.emailsLabel')}</p>
+            <div className="contact-emails__grid">
+              {[
+                'ahmed.shouman@etc-egypt.net',
+                'hossam.embabi@etc-egypt.net',
+                'tarek.embabi@etc-egypt.net',
+                'mohamed.talkhan@etc-egypt.net',
+              ].map((email) => (
+                <a
+                  key={email}
+                  href={`mailto:${email}`}
+                  className="contact-emails__item"
+                >
+                  <span className="contact-emails__icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                      <path d="M3 4a2 2 0 0 0-2 2v.217l9 5.25 9-5.25V6a2 2 0 0 0-2-2H3Z" />
+                      <path d="m1 8.133 7.763 4.529a2 2 0 0 0 2.474 0L19 8.133V14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8.133Z" />
+                    </svg>
+                  </span>
+                  <span className="contact-emails__address">{email}</span>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </section>
