@@ -263,7 +263,6 @@ export default function HomePage({ onNavigate }) {
               {[
                 'ahmed.shouman@etc-egypt.net',
                 'hossam.embabi@etc-egypt.net',
-                'tarek.embabi@etc-egypt.net',
                 'mohamed.talkhan@etc-egypt.net',
               ].map((email) => (
                 <a
